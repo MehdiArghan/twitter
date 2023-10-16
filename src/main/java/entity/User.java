@@ -6,7 +6,6 @@ import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,14 +21,13 @@ public class User extends BaseEntity<Long> {
     String lastName;
     String userName;
     String password;
-    LocalDate birthDate;
     @OneToMany(mappedBy = "user")
     Set<Tweet> tweets = new HashSet<>();
-    public User(String firstName, String lastName, String userName, String password, LocalDate birthDate) {
+
+    public User(String firstName, String lastName, String userName, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
-        this.birthDate = birthDate;
     }
 }
