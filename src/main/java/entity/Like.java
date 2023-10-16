@@ -15,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @ToString
 public class Like extends BaseEntity<Long> {
-    int likes;
+    String likes;
     @ManyToOne
     @JoinColumn(name = "tweet_id")
     Tweet tweet;
