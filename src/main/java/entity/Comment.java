@@ -17,7 +17,6 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@ToString
 public class Comment extends BaseEntity<Long> {
     String massage;
     @ManyToOne
@@ -33,5 +32,14 @@ public class Comment extends BaseEntity<Long> {
         this.massage = massage;
         this.user = user;
         this.tweet = tweet;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "massage='" + massage + '\'' +
+                ", user=" + user +
+                ", tweet=" + tweet +
+                "} " + super.toString();
     }
 }
