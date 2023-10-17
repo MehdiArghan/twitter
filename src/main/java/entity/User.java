@@ -31,6 +31,7 @@ public class User extends BaseEntity<Long> {
         this.userName = userName;
         this.password = password;
     }
+
     @Override
     public String toString() {
         return "User{" +

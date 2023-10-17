@@ -1,10 +1,8 @@
 package entity;
 
 import base.entity.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -17,18 +15,28 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@ToString
 public class Tweet extends BaseEntity<Long> {
+    @Size(max = 280, message = "Max number of characters: 280")
+    @Column(length = 280)
     String message;
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
-    @OneToMany(mappedBy = "tweet")
+    @OneToMany(mappedBy = "tweet", cascade = CascadeType.REMOVE)
     Set<Like> likes = new HashSet<>();
-    @OneToMany(mappedBy = "tweet")
+    @OneToMany(mappedBy = "tweet", cascade = CascadeType.REMOVE)
     Set<Comment> comments = new HashSet<>();
+
     public Tweet(String message, User user) {
         this.message = message;
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Tweet{" +
+                "message='" + message + '\'' +
+                ", user=" + user +
+                "} " + super.toString();
     }
 }
