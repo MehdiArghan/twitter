@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface UserService extends BaseService<Long, User> {
     Optional<User> findByUserName(String UserName);
+    void singUp(User user);
+    boolean validate(User user);
 }

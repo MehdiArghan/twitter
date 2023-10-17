@@ -1,6 +1,7 @@
 package entity;
 
 import base.entity.BaseEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.*;
@@ -15,10 +16,10 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@ToString
 public class User extends BaseEntity<Long> {
     String firstName;
     String lastName;
+    @Column(unique = true)
     String userName;
     String password;
     @OneToMany(mappedBy = "user")
@@ -29,5 +30,14 @@ public class User extends BaseEntity<Long> {
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                "} " + super.toString();
     }
 }
