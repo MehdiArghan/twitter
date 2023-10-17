@@ -13,7 +13,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@ToString
 public class Like extends BaseEntity<Long> {
     String likes;
     @ManyToOne
@@ -25,4 +24,15 @@ public class Like extends BaseEntity<Long> {
     @ManyToOne
     @JoinColumn(name = "comment_id")
     Comment comment;
+
+    public Like(String likes) {
+        this.likes = likes;
+    }
+
+    @Override
+    public String toString() {
+        return "Like{" +
+                "likes='" + likes + '\'' +
+                "} " + super.toString();
+    }
 }
