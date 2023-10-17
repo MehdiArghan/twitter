@@ -24,12 +24,12 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<Long, User> implement
     }
 
     @Override
-    public Optional<User> findByUserName(String UserName) {
+    public Optional<User> findByUserName(String userName) {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);
         Root<User> root = query.from(User.class);
-        query.where(builder.equal(root.get("userName"), UserName));
         query.select(root);
+        query.where(builder.equal(root.get("userName"), userName));
         User result = session.createQuery(query).getSingleResult();
         return Optional.ofNullable(result);
     }
