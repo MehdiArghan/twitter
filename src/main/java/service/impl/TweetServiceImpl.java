@@ -14,7 +14,6 @@ import service.TweetService;
 import java.util.Set;
 
 public class TweetServiceImpl extends BaseServiceImpl<Long, Tweet, TweetRepository> implements TweetService {
-    private TweetRepository tweetRepository;
 
     public TweetServiceImpl(Session session, TweetRepository repository) {
         super(session, repository);
@@ -33,6 +32,6 @@ public class TweetServiceImpl extends BaseServiceImpl<Long, Tweet, TweetReposito
             }
             validatorFactory.close();
         } else
-            tweetRepository.save(tweet);
+           repository.save(tweet);
     }
 }
