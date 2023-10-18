@@ -174,4 +174,10 @@ public class Menu {
         return comment;
     }
 
+
+    public String editMessage() {
+        System.out.println("please type your message");
+        return scanner.next();
+    }
+
 }
