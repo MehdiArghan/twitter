@@ -123,4 +123,21 @@ public class Menu {
                 showProfile();
         }
     }
+
+
+    public void editProfile() {
+        System.out.println("=========Edit=========");
+        System.out.println("name:----------------------");
+        String name = scanner.next();
+        System.out.println("family:--------------------");
+        String family = scanner.next();
+        person.setFirstName(name);
+        person.setLastName(family);
+        if (!userService.validate(person)) {
+            showMenu();
+        } else {
+            userService.update(person);
+            System.out.println("updated.......");
+        }
+    }
 }
