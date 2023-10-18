@@ -43,18 +43,16 @@ public class Menu {
         System.out.println();
         System.out.println("-----(1)signUp-----------(2)logIn-----------(3)exit------");
         switch (scanner.nextInt()) {
-            case 1:
+            case 1 -> {
                 signUp();
                 logIn();
-                break;
-            case 2:
-                logIn();
-                break;
-            case 3:
-                System.exit(0);
-            default:
+            }
+            case 2 -> logIn();
+            case 3 -> System.exit(0);
+            default -> {
                 System.out.println("invalid option");
                 showMenu();
+            }
         }
     }
 
@@ -107,22 +105,21 @@ public class Menu {
         System.out.println("=====================================================================================================================================");
         System.out.println("(1)Edit profile----(2)remove account----(3)log out------");
         switch (scanner.nextInt()) {
-            case 1:
-                editProfile();
-                break;
-            case 2:
+            case 1 -> editProfile();
+            case 2 -> {
                 userService.delete(person);
                 System.out.println("this account is removed....");
                 person = null;
                 showMenu();
-                break;
-            case 3:
+            }
+            case 3 -> {
                 person = null;
                 showMenu();
-                break;
-            default:
+            }
+            default -> {
                 System.out.println("invalid option");
                 showProfile();
+            }
         }
     }
 
@@ -155,7 +152,7 @@ public class Menu {
         Set<Tweet> tweets = new HashSet<>();
         Set<Like> likeList = new HashSet<>();
         Set<Comment> commentList = new HashSet<>();
-        Tweet tweet = new Tweet(message,person);
+        Tweet tweet = new Tweet(message, person);
         tweet.setLikes(likeList);
         tweet.setComments(commentList);
         tweets.add(tweet);
@@ -164,4 +161,17 @@ public class Menu {
         userService.update(person);
         showHome();
     }
+
+
+    public Comment postComment(Tweet tweet) {
+        System.out.println("please write your comment");
+        String message = scanner.next();
+        Set<Like> likeList = new HashSet<>();
+        Comment comment = new Comment(message, tweet);
+        comment.setUser(person);
+        comment.setLikes(likeList);
+        commentService.save(comment);
+        return comment;
+    }
+
 }

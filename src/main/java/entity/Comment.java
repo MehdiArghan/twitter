@@ -34,6 +34,11 @@ public class Comment extends BaseEntity<Long> {
         this.tweet = tweet;
     }
 
+    public Comment(String massage,Tweet tweet) {
+        this.massage = massage;
+        this.tweet = tweet;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
