@@ -140,4 +140,9 @@ public class Menu {
             System.out.println("updated.......");
         }
     }
+
+
+    public String checkTweetLength() {
+        return "a".repeat(270);
+    }
 }
