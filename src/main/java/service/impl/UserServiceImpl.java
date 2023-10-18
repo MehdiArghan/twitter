@@ -25,6 +25,11 @@ public class UserServiceImpl extends BaseServiceImpl<Long, User, UserRepository>
     }
 
     @Override
+    public Optional<User> findByPassword(String password) {
+        return repository.findByPassword(password);
+    }
+
+    @Override
     public void singUp(User user) {
         try {
             session.getTransaction().begin();
