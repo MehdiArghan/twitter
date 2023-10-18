@@ -1,6 +1,8 @@
 package view;
 
 import base.repository.util.HibernateUtil;
+import entity.Comment;
+import entity.Like;
 import entity.Tweet;
 import entity.User;
 import jakarta.persistence.NoResultException;
@@ -144,5 +146,22 @@ public class Menu {
 
     public String checkTweetLength() {
         return "a".repeat(270);
+    }
+
+
+    public void postTweet() {
+        System.out.println("please write your message");
+        String message = scanner.next();
+        Set<Tweet> tweets = new HashSet<>();
+        Set<Like> likeList = new HashSet<>();
+        Set<Comment> commentList = new HashSet<>();
+        Tweet tweet = new Tweet(message,person);
+        tweet.setLikes(likeList);
+        tweet.setComments(commentList);
+        tweets.add(tweet);
+        person.setTweets(tweets);
+        tweetService.save(tweet);
+        userService.update(person);
+        showHome();
     }
 }
