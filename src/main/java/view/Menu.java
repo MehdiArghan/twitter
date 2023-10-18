@@ -3,6 +3,7 @@ package view;
 import base.repository.util.HibernateUtil;
 import entity.Tweet;
 import entity.User;
+import jakarta.persistence.NoResultException;
 import org.hibernate.Session;
 import repository.impl.CommentRepositoryImpl;
 import repository.impl.LikeRepositoryImpl;
@@ -28,14 +29,14 @@ public class Menu {
     private final LikeService likeService = new LikeServiceImpl(session, new LikeRepositoryImpl(session));
     private final CommentService commentService = new CommentServiceImpl(session, new CommentRepositoryImpl(session));
     private final Scanner scanner = new Scanner(System.in);
-    private final Set<Tweet> tweetList = new HashSet<>();
     private static User person = new User();
+    private final Set<Tweet> tweetList = new HashSet<>();
 
     public static User getUser() {
         return person;
     }
 
-    public void showMenuEntrance() {
+    public void showMenu() {
         System.out.println("--------------------------Twitter--------------------------");
         System.out.println();
         System.out.println("-----(1)signUp-----------(2)logIn-----------(3)exit------");
@@ -49,6 +50,9 @@ public class Menu {
                 break;
             case 3:
                 System.exit(0);
+            default:
+                System.out.println("invalid option");
+                showMenu();
         }
     }
 
@@ -68,7 +72,7 @@ public class Menu {
         User user = new User(name, family, username, password);
         tweet.setUser(user);
         if (!userService.validate(user)) {
-            showMenuEntrance();
+            showMenu();
         } else {
             person = user;
         }
@@ -85,12 +89,38 @@ public class Menu {
             if (userService.findByUserName(userName).isPresent() &&
                     userService.findByPassword(password).isPresent()) {
                 person = userService.findByPassword(password).get();
-                showMenuEntrance();
+                showHome();
             }
         } catch (NoResultException e) {
             System.out.println("username and password is inCorrect");
-            showMenuEntrance();
+            showMenu();
         }
     }
 
+
+    public void showProfile() {
+        System.out.println("=========Profile=========");
+        System.out.println("=====================================================================================================================================");
+        System.out.println(person);
+        System.out.println("=====================================================================================================================================");
+        System.out.println("(1)Edit profile----(2)remove account----(3)log out------");
+        switch (scanner.nextInt()) {
+            case 1:
+                editProfile();
+                break;
+            case 2:
+                userService.delete(person);
+                System.out.println("this account is removed....");
+                person = null;
+                showMenu();
+                break;
+            case 3:
+                person = null;
+                showMenu();
+                break;
+            default:
+                System.out.println("invalid option");
+                showProfile();
+        }
+    }
 }
