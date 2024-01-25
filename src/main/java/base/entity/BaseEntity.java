@@ -7,6 +7,7 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @Getter
 @MappedSuperclass
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class BaseEntity<ID extends Serializable> implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

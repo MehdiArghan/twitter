@@ -23,9 +23,9 @@ public class Tweet extends BaseEntity<Long> {
     @JoinColumn(name = "user_id")
     User user;
     @OneToMany(mappedBy = "tweet", cascade = CascadeType.REMOVE)
-    Set<Like> likes = new HashSet<>();
+    Set<Like> likes;
     @OneToMany(mappedBy = "tweet", cascade = CascadeType.REMOVE)
-    Set<Comment> comments = new HashSet<>();
+    Set<Comment> comments;
 
     public Tweet(String message, User user) {
         this.message = message;

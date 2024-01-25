@@ -1,13 +1,10 @@
 package entity;
 
 import base.entity.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Setter
@@ -16,14 +13,15 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
+@Table(name = "person")
 public class User extends BaseEntity<Long> {
     String firstName;
     String lastName;
     @Column(unique = true)
     String userName;
     String password;
-    @OneToMany(mappedBy = "user")
-    Set<Tweet> tweets = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    Set<Tweet> tweets;
 
     public User(String firstName, String lastName, String userName, String password) {
         this.firstName = firstName;

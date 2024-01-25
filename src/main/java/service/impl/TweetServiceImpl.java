@@ -2,36 +2,26 @@ package service.impl;
 
 import base.service.impl.BaseServiceImpl;
 import entity.Tweet;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
 import org.hibernate.Session;
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator;
 import repository.TweetRepository;
 import service.TweetService;
-
-import java.util.Set;
+import util.checkValidation;
 
 public class TweetServiceImpl extends BaseServiceImpl<Long, Tweet, TweetRepository> implements TweetService {
+    protected Session session;
 
     public TweetServiceImpl(Session session, TweetRepository repository) {
         super(session, repository);
+        this.session = session;
     }
 
     @Override
     public void validate(Tweet tweet) {
-        ValidatorFactory validatorFactory = Validation.byDefaultProvider()
-                .configure().messageInterpolator(new ParameterMessageInterpolator())
-                .buildValidatorFactory();
-        Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<Tweet>> violations = validator.validate(tweet);
-        if (!violations.isEmpty()) {
-            for (ConstraintViolation<Tweet> violation : violations) {
-                System.out.println(violation.getMessage());
-            }
-            validatorFactory.close();
-        } else
-           repository.save(tweet);
+        boolean validTweet = checkValidation.isValid(tweet);
+        if (validTweet) {
+            repository.save(tweet);
+        } else {
+            System.out.println("validation error");
+        }
     }
 }

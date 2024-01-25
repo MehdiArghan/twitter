@@ -7,7 +7,6 @@ import repository.TweetRepository;
 
 public class TweetRepositoryImpl extends BaseRepositoryImpl<Long, Tweet> implements TweetRepository {
     protected final Session session;
-
     public TweetRepositoryImpl(Session session) {
         super(session);
         this.session = session;

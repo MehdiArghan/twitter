@@ -26,7 +26,7 @@ public class Comment extends BaseEntity<Long> {
     @JoinColumn(name = "tweet_id")
     Tweet tweet;
     @OneToMany(mappedBy = "comment")
-    Set<Like> likes = new HashSet<>();
+    Set<Like> likes;
 
     public Comment(String massage, User user, Tweet tweet) {
         this.massage = massage;
