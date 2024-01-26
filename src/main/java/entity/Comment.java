@@ -1,14 +1,10 @@
 package entity;
 
 import base.entity.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Setter
@@ -25,18 +21,17 @@ public class Comment extends BaseEntity<Long> {
     @ManyToOne
     @JoinColumn(name = "tweet_id")
     Tweet tweet;
-    @OneToMany(mappedBy = "comment")
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.REFRESH)
     Set<Like> likes;
 
-    public Comment(String massage, User user, Tweet tweet) {
+    public Comment(String massage, Tweet tweet) {
         this.massage = massage;
-        this.user = user;
         this.tweet = tweet;
     }
 
-    public Comment(String massage,Tweet tweet) {
+    public Comment(String massage, Set<Like> likes) {
         this.massage = massage;
-        this.tweet = tweet;
+        this.likes = likes;
     }
 
     @Override

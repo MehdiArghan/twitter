@@ -37,6 +37,6 @@ public class Tweet extends BaseEntity<Long> {
         return "Tweet{" +
                 "message='" + message + '\'' +
                 ", user=" + user +
-                "} " + super.toString();
+                "} ";
     }
 }

@@ -32,7 +32,6 @@ public class Menu {
     private final CommentService commentService = new CommentServiceImpl(session, new CommentRepositoryImpl(session));
     private final Scanner scanner = new Scanner(System.in);
     private static User person = new User();
-    private final Set<Tweet> tweetList = new HashSet<>();
 
     public void showMenu() {
         System.out.println("--------------------------Twitter--------------------------");
@@ -62,15 +61,11 @@ public class Menu {
         String username = scanner.next();
         System.out.println("password:------------------");
         String password = scanner.next();
-        Tweet tweet = new Tweet();
-        tweet.setMessage(username + "joined  tweeter ");
-        tweetList.add(tweet);
         User user = new User(name, family, username, password);
-        tweet.setUser(user);
         if (userService.validate(user)) {
             showMenu();
         } else {
-            person = user;
+            System.out.println("Registration failed");
         }
     }
 

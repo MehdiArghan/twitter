@@ -42,6 +42,6 @@ public class Like extends BaseEntity<Long> {
     public String toString() {
         return "Like{" +
                 "likes='" + likes + '\'' +
-                "} " + super.toString();
+                "} ";
     }
 }

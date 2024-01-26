@@ -37,6 +37,6 @@ public class User extends BaseEntity<Long> {
                 ", lastName='" + lastName + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                "} " + super.toString();
+                "} ";
     }
 }
